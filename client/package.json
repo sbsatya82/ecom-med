@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "^4.0.17",
     "@tanstack/react-table": "^8.20.5",
     "axios": "^1.7.4",
+    "new-folder": "file:..",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.0",
