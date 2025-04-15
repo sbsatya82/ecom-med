@@ -1,10 +1,13 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 import dotenv from 'dotenv';
 dotenv.config();
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import helmet from 'helmet';
+
+
 import connectDB from './config/connectDB.js';
 import userRouter from './route/user.route.js';
 import categoryRouter from './route/category.route.js';
@@ -17,6 +20,7 @@ import orderRouter from './route/order.route.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+const __dirname = path.resolve();
 const isProduction = process.env.NODE_ENV === 'production';
 
 // CORS Configuration
@@ -49,6 +53,16 @@ app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/address", addressRouter);
 app.use('/api/order', orderRouter);
+
+
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+  
+    app.get("*",(req, res) => {
+      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    })
+  }
 
 // Database Connection and Server Start
 connectDB().then(() => {
