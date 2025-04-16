@@ -34,6 +34,15 @@ app.use(express.json());
 app.use(cookieParser());
 //app.use(morgan(isProduction ? 'combined' : 'dev'));
 app.use(helmet({
+    contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          "script-src": ["'self'", "https://js.stripe.com"],
+          "frame-src": ["'self'", "https://js.stripe.com"],
+          "connect-src": ["'self'", "https://api.stripe.com"],
+          "img-src": ["'self'", "data:", "https://res.cloudinary.com"],
+        },
+      },
     crossOriginResourcePolicy: isProduction ? { policy: "same-origin" } : false
 }));
 

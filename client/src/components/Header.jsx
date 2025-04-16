@@ -24,6 +24,8 @@ const Header = () => {
     // const [totalQty,setTotalQty] = useState(0)
     const { totalPrice, totalQty} = useGlobalContext()
     const [openCartSection,setOpenCartSection] = useState(false)
+
+    
  
     const redirectToLoginPage = ()=>{
         navigate("/login")
