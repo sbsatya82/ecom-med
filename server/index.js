@@ -32,18 +32,27 @@ app.use(cors({
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(morgan(isProduction ? 'combined' : 'dev'));
+//app.use(morgan(isProduction ? 'combined' : 'dev'));
 app.use(helmet({
     crossOriginResourcePolicy: isProduction ? { policy: "same-origin" } : false
 }));
 
 // Routes
-app.get("/", (req, res) => {
-    res.json({
-        message: `Server is running on PORT ${PORT}`,
-        environment: process.env.NODE_ENV || 'development'
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    })
+}
+else {
+    app.get("/", (req, res) => {
+        res.json({
+            message: `Server is running on PORT ${PORT}`,
+            environment: process.env.NODE_ENV || 'development'
+        });
     });
-});
+}
 
 app.use('/api/user', userRouter);
 app.use("/api/category", categoryRouter);
@@ -56,13 +65,7 @@ app.use('/api/order', orderRouter);
 
 
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-  
-    app.get("/",(req, res) => {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-    })
-  }
+
 
 // Database Connection and Server Start
 connectDB().then(() => {
@@ -72,3 +75,5 @@ connectDB().then(() => {
 }).catch(err => {
     console.error("Database connection failed:", err);
 });
+
+
