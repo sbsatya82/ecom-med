@@ -47,7 +47,7 @@ export async function registerUserController(request,response){
 
         const verifyEmail = await sendEmail({
             sendTo : email,
-            subject : "Verify email from binkeyit",
+            subject : "Verify email from Maa Mangala Med Care",
             html : verifyEmailTemplate({
                 name,
                 url : VerifyEmailUrl
@@ -303,7 +303,7 @@ export async function forgotPasswordController(request,response) {
 
         await sendEmail({
             sendTo : email,
-            subject : "Forgot password from Binkeyit",
+            subject : "Forgot password from Maa Mangala Med Care",
             html : forgotPasswordTemplate({
                 name : user.name,
                 otp : otp
@@ -412,7 +412,7 @@ export async function resetpassword(request,response){
 
         if(newPassword !== confirmPassword){
             return response.status(400).json({
-                message : "newPassword and confirmPassword must be same.",
+                message : "New password and confirm password must be same.",
                 error : true,
                 success : false,
             })
