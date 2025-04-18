@@ -156,6 +156,10 @@ const SummaryApi = {
     getAllOrders : {
         url : '/api/order/all-order-list',
         method : 'get'
+    },
+    setOrderStatus : {
+        url : '/api/order/set-order-status',
+        method : 'put'
     }
 }
 

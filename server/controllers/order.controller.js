@@ -190,7 +190,6 @@ export async function webhookStripe(request,response){
     
       const order = await OrderModel.insertMany(orderProduct)
 
-        console.log(order)
         if(Boolean(order[0])){
             const removeCartItems = await  UserModel.findByIdAndUpdate(userId,{
                 shopping_cart : []
@@ -246,4 +245,45 @@ export async function getAllOrders(request,response) {
             success : false
         })
     }
+}
+
+
+
+//set order status
+export async function setOrderStatus(request,response) {
+  try {
+    const {status,orderId} = request.body;
+    if (!status || !orderId) {
+      return response.status(400).json({
+        message: "Status and Order ID are required",
+        success: false,
+        error: true,
+      });
+    }
+    const order = await OrderModel.findOne({ orderId });
+
+    if (!order) {
+      return response.status(404).json({
+        message: "Order not found",
+        success: false,
+        error: true,
+      });
+    }
+
+    order.status = status;
+    await order.save();
+
+    return response.status(200).json({
+      message: "Order status updated successfully",
+      success: true,
+      error: false,
+      data: order,
+    });
+  } catch (error) {
+      return response.status(500).json({
+        message : error.message || error,
+        error : true,
+        success : false
+    })
+  }
 }
