@@ -10,7 +10,11 @@ import { FaMinus, FaPlus } from "react-icons/fa6"
 import { useNavigate } from 'react-router-dom'
 
 const AddToCartButton = ({ data }) => {
-    const { fetchCartItem, updateCartItem, deleteCartItem } = useGlobalContext()
+    const {
+        fetchCartItems,
+        updateCartItemQty,
+        deleteCartItem,
+      } = useGlobalContext();
     const [loading, setLoading] = useState(false)
     const cartItem = useSelector(state => state.cartItem.cart)
     const [isAvailableCart, setIsAvailableCart] = useState(false)
@@ -46,8 +50,8 @@ const AddToCartButton = ({ data }) => {
             // Show success toast and refetch cart items
             if (responseData.success) {
                 toast.success(responseData.message)
-                if (fetchCartItem) {
-                    fetchCartItem()
+                if (fetchCartItems) {
+                    fetchCartItems()
                 }
             }
         } catch (error) {
@@ -80,7 +84,7 @@ const AddToCartButton = ({ data }) => {
         }
 
         // API call to update cart item quantity
-        const response = await updateCartItem(cartItemDetails?._id, qty + 1)
+        const response = await updateCartItemQty(cartItemDetails?._id, qty + 1)
 
         if (response.success) {
             toast.success("Item added")
@@ -103,7 +107,7 @@ const AddToCartButton = ({ data }) => {
             deleteCartItem(cartItemDetails?._id)
         } else {
             // Else, decrease the quantity
-            const response = await updateCartItem(cartItemDetails?._id, qty - 1)
+            const response = await updateCartItemQty(cartItemDetails?._id, qty - 1)
 
             if (response.success) {
                 toast.success("Item remove")
