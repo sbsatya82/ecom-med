@@ -13,7 +13,6 @@ const AllOrders = () => {
   useEffect(() => {
     const getOrders = async () => {
       const fetchedOrders = await fetchAllOrders();
-      console.log(fetchedOrders.data);
       
       // Sort orders by newest first (assuming createdAt is in ISO format)
       const sortedOrders = fetchedOrders.data.sort(

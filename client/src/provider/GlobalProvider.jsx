@@ -105,6 +105,8 @@ const GlobalProvider = ({ children }) => {
     try {
       const response = await Axios({ ...SummaryApi.getAddress });
       const { data: responseData } = response;
+      console.log("address:", responseData);
+      
       if (responseData.success) {
         dispatch(handleAddAddress(responseData.data));
       }

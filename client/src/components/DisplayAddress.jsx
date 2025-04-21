@@ -5,7 +5,7 @@ const DisplayAddress = ({ address_id }) => {
   const { addressList } = useSelector(state => state.addresses); // Get all addresses
   const [address, setAddress] = useState(null);
 
-  useEffect(() => {
+  useEffect(() => {    
     const foundAddress = addressList.find(item => item._id === address_id);
     setAddress(foundAddress || null); // If not found, set to null
   }, [address_id, addressList]);
