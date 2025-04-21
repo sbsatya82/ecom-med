@@ -157,6 +157,10 @@ const SummaryApi = {
         url : '/api/order/all-order-list',
         method : 'get'
     },
+    getAllAddress : {
+        url : '/api/address/get-all-address',
+        method : 'get'
+    },
     setOrderStatus : {
         url : '/api/order/set-order-status',
         method : 'put'

@@ -1,3 +1,4 @@
+import { request, response } from "express";
 import AddressModel from "../models/address.model.js";
 import UserModel from "../models/user.model.js"; 
 
@@ -113,3 +114,22 @@ export const deleteAddresscontroller = async(request,response)=>{
     }
 }
 
+
+
+export const getAllAddress = async (request, response) => {
+    try {
+      const addresses = await AddressModel.find(); // Fetch all addresses
+      response.status(200).json({
+        success: true,
+        data: addresses
+      });
+    } catch (error) {
+      console.error("Error fetching addresses:", error);
+      response.status(500).json({
+        success: false,
+        message: 'Failed to fetch addresses',
+        error: error.message
+      });
+    }
+  };
+  
