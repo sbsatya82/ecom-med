@@ -164,7 +164,11 @@ const SummaryApi = {
     setOrderStatus : {
         url : '/api/order/set-order-status',
         method : 'put'
-    }
+    },
+    OnlineUPIOrder: {
+        method: "POST",
+        url: "/api/order/upi",
+      },
 }
 
 export default SummaryApi
