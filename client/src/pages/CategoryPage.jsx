@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import UploadCategoryModel from '../components/UploadCategoryModel'
 import Loading from '../components/Loading'
 import NoData from '../components/NoData'
@@ -42,7 +42,7 @@ const CategoryPage = () => {
                 setCategoryData(responseData.data)
             }
         } catch (error) {
-            
+            console.log(error);
         }finally{
             setLoading(false)
         }
@@ -73,7 +73,7 @@ const CategoryPage = () => {
 
   return (
     <section className=''>
-        <div className='p-2   bg-white shadow-md flex items-center justify-between'>
+        <div className='p-2  bg-white shadow-md flex items-center justify-between'>
             <h2 className='font-semibold'>Category</h2>
             <button onClick={()=>setOpenUploadCategory(true)} className='text-sm border border-primary-200 hover:bg-primary-200 px-3 py-1 rounded'>Add Category</button>
         </div>
@@ -87,7 +87,7 @@ const CategoryPage = () => {
             {
                 categoryData.map((category,index)=>{
                     return(
-                        <div className='w-32 h-56 rounded shadow-md' key={category._id}>
+                        <div className='w-32 h-56 rounded shadow-md' key={category._id+ index}>
                             <img 
                                 alt={category.name}
                                 src={category.image}
